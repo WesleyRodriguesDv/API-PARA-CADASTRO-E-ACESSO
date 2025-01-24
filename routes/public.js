@@ -16,6 +16,18 @@ router.post("/cadastro", async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(user.password, salt);
 
+//VERIFICA SE JÁ EXISTE UM EMAIL CADASTRADO
+    const exist = await prisma.user.findUnique({
+      where: { email: user.email },
+    });
+
+    if (exist) {
+      return res
+        .status(404)
+        .json({ mesage: "Já existe um cadastro com esse email" });
+    }
+
+//CADASTRA UM NOVO USUÁRIO NO BANCO DE DADOS
     const userDB = await prisma.user.create({
       data: {
         email: user.email,
