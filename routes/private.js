@@ -1,19 +1,29 @@
-import express from 'express'
-import { PrismaClient } from '@prisma/client'
+import express from "express";
+import { PrismaClient } from "@prisma/client";
 
-const router = express.Router()
-const prisma = new PrismaClient()
+const router = express.Router();
+const prisma = new PrismaClient();
 
-router.get('/listar-usuarios', async (req,res) => {
-    try{
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Lista todos os usuários
+ *     responses:
+ *       200:
+ *         description: Usuários listados com sucesso
+ */
 
-        const user = await prisma.user.findMany({omit: {password: true}})
-        res.status(200).json({message: 'Usuários listados com sucesso', user})
+//Acessa o banco de dados omitindo a informação de senha;
+//Com sucesso, lista todos os usuários
 
-    }catch (err) {
-        res.status(500).json({message:'Falha no servidor'})
-    }
-})
+router.get("/listar-usuarios", async (req, res) => {
+  try {
+    const user = await prisma.user.findMany({ omit: { password: true } });
+    res.status(200).json({ message: "Usuários listados com sucesso", user });
+  } catch (err) {
+    res.status(500).json({ message: "Falha no servidor" });
+  }
+});
 
-
-export default router
+export default router;

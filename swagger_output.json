@@ -1,0 +1,100 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Gerenciamento de Usuários",
+    "description": "Cadastro, login, listagem e atualização de usuários",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/listar-usuarios": {
+      "get": {
+        "description": "lista todos os usuários",
+        "responses": {
+          "200": {
+            "description": "Usuários listados com sucesso"
+          },
+          "500": {
+            "description": "Erro no servidor"
+          }
+        }
+      }
+    },
+    "/cadastro": {
+      "post": {
+        "description": "Cadastro de usuário",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "example": "asd185a2"
+                },
+                "email": {
+                  "example": "joao_gabriel@gmail.com"
+                },
+                "name": {
+                  "example": "João Gabriel"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Usuário criado com sucesso"
+          },
+          "404": {
+            "description": "Já existe um usuário com esse e-mail"
+          },
+          "500": {
+            "description": "Erro no servidor"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "description": "Login de usuário",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "joao_gabriel@gmail.com"
+                },
+                "password": {
+                  "example": "asd185a2"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token validado, login com sucesso"
+          },
+          "400": {
+            "description": "Senha inválida"
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          },
+          "500": {
+            "description": "Erro no servidor, tente novamente"
+          }
+        }
+      }
+    }
+  }
+}

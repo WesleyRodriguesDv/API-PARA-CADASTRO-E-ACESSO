@@ -7,6 +7,16 @@ const JWT_SECRET = process.env.JWT_SECRET
 const prisma = new PrismaClient();
 const router = express.Router();
 
+/**
+ * @swagger
+ * /users:
+ *   post:
+ *     summary: Cria um novo usuário
+ *     responses:
+ *       201:
+ *         description: Usuário criado com sucesso
+ */
+
 //CADASTRO
 router.post("/cadastro", async (req, res) => {
   try {
@@ -40,6 +50,16 @@ router.post("/cadastro", async (req, res) => {
     res.status(500).json({ message: "Erro no servidor!" });
   }
 });
+
+/**
+ * @swagger
+ * /users:
+ *   post:
+ *     summary: Cria um novo usuário
+ *     responses:
+ *       201:
+ *         description: Usuário criado com sucesso
+ */
 
 //LOGIN
 
